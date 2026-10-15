@@ -1,0 +1,15 @@
+#!/bin/sh
+export HISTB_V4L2REQUEST_DEFER_CAPTURE_WAIT=auto
+export HISTB_V4L2REQUEST_MAIN10_NV12=1
+export HISTB_V4L2REQUEST_MAX_CAPTURE_SIZE=1920x1080
+exec /usr/local/bin/hivxe-ffmpeg -hide_banner -loglevel warning -nostdin \
+  -init_hw_device v4l2request=hivxe:/dev/media0 \
+  -hwaccel v4l2request -hwaccel_device hivxe -hwaccel_output_format drm_prime \
+  -threads 1 -extra_hw_frames 0 \
+  -f mpegts -probesize 2097152 -analyzeduration 5000000 -fflags +genpts+discardcorrupt \
+  -i pipe:0 -map 0:v:0 -map 0:a? -map 0:s? \
+  -vf hivxedei \
+  -c:v h264_v4l2m2m -num_capture_buffers 16 -b:v 8000000 -g 50 \
+  -c:a copy -c:s copy \
+  -fps_mode passthrough -muxdelay 0 -muxpreload 0 -flush_packets 1 -mpegts_flags +resend_headers \
+  -f mpegts pipe:1
