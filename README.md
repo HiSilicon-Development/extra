@@ -1,6 +1,6 @@
 # HiSilicon DLC
 
-适用于 Debian 12 arm64 和支持 HiVXE 的海思内核。使用 root 执行：
+适用于 Debian 12/13 arm64、systemd 和支持 HiVXE 的海思内核。FFmpeg/FFprobe 及私有库以 Debian 12 的 glibc 2.36 为构建基线，两套系统共用同一套产物。使用 root 执行：
 
 ```sh
 curl -fL https://raw.githubusercontent.com/HiSilicon-Development/extra/main/install.sh -o install.sh
@@ -14,7 +14,7 @@ bash install.sh                  # 默认安装全部，使用上游适配版 OS
 
 安装内容：
 
-- `/usr/local/bin/hivxe-ffmpeg`、`hivxe-ffprobe` 及 `/usr/local/lib/hivxe-ffmpeg/` 私有库；`libc6`、`libdrm2`、`libudev1` 等依赖由 apt 安装。
+- `/usr/local/bin/hivxe-ffmpeg`、`hivxe-ffprobe` 及 `/usr/local/lib/hivxe-ffmpeg/` 私有库；`libc6`、`libdrm2`、`libudev1`、`ca-certificates`、`curl`、`tar`、`gzip`、`coreutils` 等系统运行库由 apt 安装。
 - 编解码硬件监控 `hivxe-top`，以及转码脚本 `hivxe-transcode`（MPEG-TS 标准输入/输出）。
 - `/usr/local/bin/oscam`、`/usr/local/etc/oscam.*` 配置和自动启动的 `oscam.service`。
 

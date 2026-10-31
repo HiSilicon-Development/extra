@@ -11,7 +11,7 @@ usage() {
 
 安装 HiVXE FFmpeg/FFprobe、hivxe-top、hivxe-transcode 和 OSCam。
 默认使用已编译的上游适配版 OSCam；--oscam-nx111 改用 nx111。
-适用于 Debian 12 arm64、systemd 和支持 HiVXE 的海思内核。
+适用于 Debian 12/13 arm64、systemd 和支持 HiVXE 的海思内核。
 EOF
 }
 
@@ -35,8 +35,8 @@ section() {
 [[ -r /etc/os-release ]] || fail '无法识别系统。'
 # shellcheck disable=SC1091
 . /etc/os-release
-[[ ${ID:-} == debian && ${VERSION_ID:-} == 12 ]] ||
-    fail '此安装包使用 Debian 12 arm64 的运行库。'
+[[ ${ID:-} == debian && ( ${VERSION_ID:-} == 12 || ${VERSION_ID:-} == 13 ) ]] ||
+    fail '此安装包仅支持 Debian 12/13 arm64。'
 command -v apt-get >/dev/null || fail '未找到 apt-get。'
 command -v systemctl >/dev/null && [[ -d /run/systemd/system ]] ||
     fail '请在运行 systemd 的系统上安装。'
