@@ -31,3 +31,6 @@ HiVXE 程序和私有依赖直接覆盖更新，不备份。
 运行 `hivxe-top` 在终端独立屏幕中每秒刷新，`Ctrl+C` 退出后恢复原终端。
 
 `hivxe-top --once` 输出一次，适用于管道或日志。
+
+在仓库根目录运行 `sha256sum --check --strict SHA256SUMS` 可校验全部随包文件。
+更新 FFmpeg/FFprobe 或私有库时，须同时将 `SHA256SUMS` 中对应条目更新为新文件的实际摘要；安装脚本会严格检查这些摘要。
